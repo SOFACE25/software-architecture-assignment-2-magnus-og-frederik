@@ -53,9 +53,20 @@ void unit_heal_target(Unit *self, Unit *target)
     self->vt->heal_target(self, target);
 }
 
-void make_unit(Unit *self, int health)
+/*void make_unit(Unit *self, int health)
 {
     static UnitVTable vt = {_unit_get_health, _unit_set_health, _unit_take_hit, _unit_attack_target, _unit_heal_target};
     self->vt = &vt;
+    self->health = health;
+}*/
+void make_unit(Unit *self, int health)
+{
+    self->vt = malloc(sizeof(UnitVTable)); // Allocate unique VTable per object
+    self->vt->get_health = _unit_get_health;
+    self->vt->set_health = _unit_set_health;
+    self->vt->take_hit = _unit_take_hit;
+    self->vt->attack_target = _unit_attack_target;
+    self->vt->heal_target = _unit_heal_target;
+
     self->health = health;
 }
