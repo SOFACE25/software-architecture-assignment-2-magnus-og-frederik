@@ -1,6 +1,6 @@
 name: Autograding Tests
 'on':
-- push
+- workflow_dispatch
 - repository_dispatch
 permissions:
   checks: write
@@ -18,8 +18,8 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: autograde
-        setup-command: pip install pytest
-        command: pytest autograde.py
+        setup-command: ''
+        command: python autograde.py
         timeout: 10
         max-score: 100
     - name: Autograding Reporter
